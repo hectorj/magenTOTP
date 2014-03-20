@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Hj_TOTP>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Hj_TOTP>
+    </modules>
+</config>

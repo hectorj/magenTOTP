@@ -1,0 +1,12 @@
+<div class="clear"></div>
+<div class="input-box input-left">
+    <label for="username">OTP (if activated for your account):</label><br>
+    <?php
+     /*//For debug purposes
+    $helper =  Mage::helper('Hj_TOTP/TOTP');
+    //echo Mage::helper('Hj_TOTP/TOTP')->generate_secret_key();//generate a seed
+    echo $helper->oath_hotp($helper->base32_decode('BC5LWRKRFWQGO36V'), $helper->get_timestamp());//generate key from a seed
+    //*/
+    ?>
+    <input type="text" class="input-text" value="" name="TOTP" id="TOTP" autocomplete="off">
+</div>
