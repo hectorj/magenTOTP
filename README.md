@@ -1,13 +1,20 @@
 magenTOTP
 =========
 
-Magento module adding TOTP (2FA) support to admin login (packaged as Hj_TOTP to ensure the name's unicity)
+Magento module adding Time-based One-Time Password (TOTP) (2 factor authentication (2FA)) support to admin login (packaged as Hj_TOTP to ensure the name's unicity)
 
-## Disclaimer
+## **Disclaimer**
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+**This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
 
-Make backups, try it on a test server first, and be careful folks.
+**Make backups, try it on a test server first, and be careful folks.**
+
+## Useful (but not required) reads
+
+If you want to understand more about what this extension does (2FA/TOTP), I recommend you read :
+- https://en.wikipedia.org/wiki/Two-factor_authentication
+- https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm
+- RFC6238 : http://tools.ietf.org/html/rfc6238
 
 ## How to
 
@@ -35,8 +42,57 @@ To disable it, go back to "System > My Account" and switch the "Enable OTP" drop
 
 If for some reason you definitely lost the seed and can't access your account anymore, you will have to access your database, and set the TOTP_seed field for your account to NULL in the "admin_user" table. Again, be careful what you do, and backup your data.
 
+## Security Notes
+
+While 2FA is a good additional layer of security, it gets broken as soon as your seed is compromised.
+
+The seed is given to you in two forms : textual, and a QRcode. None of them should be shared with anyone.
+
+Do not generate your seed through untrusted proxys, an untrusted connection or an untrusted system/hardware.
+
+Enabling HTTPS is **strongly recommended** to be sure that no one intercepted it while it was transfered to you (and if you are worried about security, it is something you should have done a long time ago already).
+
+Note that it is also stored in your database, so anyone with an access to it can compromise your account (anyone with an access to your Magento database can actually do nearly everything he wants to your store).
+
+The QRcode files on the server-side are deleted as soon as possible.
+
+The extension set HTTP headers to tell your browser to not keep it in cache.
+
+To finish, using this module should not stop you from other good security practices, such as long, random passwords shared with no other people nor services etc...
+
+## Troubleshoot
+
+### I don't have the "OTP Information" section nor the OTP field at admin login
+
+Check that you correctly copied the files and that they are readable, then flush your Magento cache.
+
+### There is no QRcode above the OTP seed
+
+Check that your /media folder is writable
+
 ## Compatibility
 
 Tested on Magento 1.8.1.0/PHP Version 5.4.9-4ubuntu2.4/Apache 2.0
 
 This module uses the OpenSSL php extension (http://www.php.net/manual/en/intro.openssl.php) to generate cryptographically secure numbers.
+
+## Credits
+
+This module makes use of :
+
+- the (slightly modified) TOTP class from Phil here : http://www.idontplaydarts.com/2011/07/google-totp-two-factor-authentication-for-php/
+- the phpqrcode library from Dominik Dzienia here : http://phpqrcode.sourceforge.net/
+
+Thanks to both of them for their open-source code.
+
+## Contact
+
+I want your feedback! I am open to criticism, and even more to suggestions. Do not hesitate to create issues and pull requests on Github (https://github.com/hectorj/magenTOTP) or to send me an email at hector.jusforgues@gmail.com
+
+## License
+
+Coming soon, but in the meantime : use it, fork it, make it live.
+
+## Conclusion
+
+Thanks for your interest in this project.
