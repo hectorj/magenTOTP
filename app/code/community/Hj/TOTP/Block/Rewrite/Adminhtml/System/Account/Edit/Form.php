@@ -29,11 +29,11 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
                 mkdir($new_TOTP_seed_dir_path);//create the QRcode media dir
             }
 
-            $new_TOTP_seed_filename=hash('sha256', $new_TOTP_seed).'.png';//we hash the seed so it doesn't appear in clear in the QRcode URL
+            $new_TOTP_seed_hash=hash('sha256', $new_TOTP_seed);//we hash the seed so it doesn't appear in clear in the QRcode URL
 
             $TOTP_id=str_replace('/', '_', str_replace('https://', '',str_replace('http://', '', Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)))).'admin';
 
-            QRcode::png('otpauth://totp/'.$TOTP_id.'?secret='.$new_TOTP_seed, $new_TOTP_seed_dir_path.DS.$new_TOTP_seed_filename);//creation of the QRcode png
+            QRcode::png('otpauth://totp/'.$TOTP_id.'?secret='.$new_TOTP_seed, $new_TOTP_seed_dir_path.DS.$new_TOTP_seed_hash.'.png');//creation of the QRcode png
 
             $new_TOTP_seed_field=$fieldset->addField('new_TOTP_seed', 'hidden', array(
                     'name'  => 'new_TOTP_seed',
@@ -41,7 +41,7 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
                 )
             );
 
-            $new_TOTP_seed_field->setAfterElementHtml($new_TOTP_seed_field->getAfterElementHtml().'<img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA, true).'qrcodes/'.$new_TOTP_seed_filename.'" style="margin: auto; display: block;" /><p style="text-align:center;">OTP seed : <strong>'.$new_TOTP_seed.'</strong></p>');
+            $new_TOTP_seed_field->setAfterElementHtml($new_TOTP_seed_field->getAfterElementHtml().'<img src="'.$this->getUrl('*/*/totp_qrcode', array('id'=>$new_TOTP_seed_hash)).'" style="margin: auto; display: block;" /><p style="text-align:center;">OTP seed : <strong>'.$new_TOTP_seed.'</strong></p>');
 
             $new_TOTP_key_field=$fieldset->addField('new_TOTP_key', 'text', array(
                     'name'  => 'new_TOTP_key',

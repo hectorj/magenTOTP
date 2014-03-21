@@ -1,6 +1,33 @@
 <?php
 require_once(Mage::getModuleDir('controllers','Mage_Adminhtml').DS.'System'.DS.'AccountController.php');
 class Hj_TOTP_System_AccountController extends Mage_Adminhtml_System_AccountController {
+    
+    public function indexAction(){
+	//Set HTTP headers to try to ensure the TOTP seed won't be cached by the browser in any way
+	$this->getResponse()->setHeader('Cache-Control', 'no-cache, no-store, must-revalidate', true);
+	$this->getResponse()->setHeader('Pragma', 'no-cache', true);
+	$this->getResponse()->setHeader('Expires', '0', true);
+	
+	return parent::indexAction();
+    }
+    
+    public function totp_qrcodeAction(){
+	//Set HTTP headers to try to ensure the TOTP seed won't be cached by the browser in any way
+	$this->getResponse()->setHeader('Cache-Control', 'no-cache, no-store, must-revalidate', true);
+	$this->getResponse()->setHeader('Pragma', 'no-cache', true);
+	$this->getResponse()->setHeader('Expires', '0', true);
+	
+	$hash=$this->getRequest()->getParam('id', false);
+	if($hash!==false && preg_match('/^[a-f0-9]{64}$/i', $hash)){//check that we have an input and that it is really a sha256 hash
+	    $content=file_get_contents(Mage::helper('Hj_TOTP')->getQRCodesDir().DS.$hash.'.png', 'r');
+	    if($content !== false){
+		echo $content;
+		return;
+	    }
+	}
+	echo 'Error';
+    }
+    
     /**
      * Saving edited user information
      */
