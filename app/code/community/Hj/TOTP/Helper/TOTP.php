@@ -1,6 +1,9 @@
 <?php
 
 /**
+ * 
+ * Note : This code was initially released under the following GPL v3 license, but I got the agreement from the author to use and release it in this module which is under OSL v3
+ * -----------------------------------------------------------------------
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -22,7 +25,7 @@
  * @author Phil
  *
  * note : "packaged" (renamed and added the extends) into this Magento Helper by HectorJ
- * also changed the rand() function for the crypto_rand_secure provided by  christophe dot weis at statec dot etat dot lu here : http://www.php.net/manual/en/function.openssl-random-pseudo-bytes.php#104322
+ * also changed the rand() function for the crypto_rand_secure provided by "christophe dot weis at statec dot etat dot lu" from here : http://www.php.net/manual/en/function.openssl-random-pseudo-bytes.php#104322
  **/
 class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
     const keyRegeneration = 30; // Interval between key regeneration
