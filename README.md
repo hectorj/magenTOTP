@@ -91,7 +91,7 @@ I want your feedback! I am open to criticism, and even more to suggestions. Do n
 
 ## License
 
-Coming soon, but in the meantime : use it, fork it, make it live.
+This module is released under the Open Software License version 3.0 (see here : https://github.com/hectorj/magenTOTP/blob/master/LICENSE.md or here : http://opensource.org/licenses/OSL-3.0)
 
 ## Conclusion
 
