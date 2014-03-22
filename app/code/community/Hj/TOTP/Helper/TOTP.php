@@ -2,7 +2,7 @@
 
 /**
  * 
- * Note : This code was initially released under the following GPL v3 license, but I got the agreement from the author to use and release it in this module which is under OSL v3
+ * Note : This code was initially released under the following GPL v3 license, but I got the agreement from the author to use and release it in this module which is under OSL v3 (here : https://www.idontplaydarts.com/2011/07/google-totp-two-factor-authentication-for-php/#comment-1296266904)
  * -----------------------------------------------------------------------
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
