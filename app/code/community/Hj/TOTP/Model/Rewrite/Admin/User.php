@@ -40,7 +40,7 @@ class Hj_TOTP_Model_Rewrite_Admin_User extends Mage_Admin_Model_User {
                 if($TOTP===null){
                     Mage::throwException(Mage::helper('Hj_TOTP')->__('OTP is required'));
                 } else {
-                    if(!Mage::helper('Hj_TOTP/TOTP')->verify_key($this->getData('TOTP_seed'), $TOTP)){
+                    if(!Mage::helper('Hj_TOTP/TOTP')->verify_key(Mage::helper('Hj_TOTP')->decrypt($this->getData('TOTP_seed')), $TOTP)){
                         Mage::throwException(Mage::helper('adminhtml')->__('OTP invalid or expired.'));
                     }
                 }

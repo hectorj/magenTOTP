@@ -26,7 +26,7 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
 
             $new_TOTP_seed_dir_path=Mage::helper('Hj_TOTP')->getQRCodesDir();
             if(!is_dir($new_TOTP_seed_dir_path)){
-                mkdir($new_TOTP_seed_dir_path);//create the QRcode media dir
+                mkdir($new_TOTP_seed_dir_path, 0777, true);//create the QRcode media dir
             }
 
             $new_TOTP_seed_hash=hash('sha256', $new_TOTP_seed);//we hash the seed so it doesn't appear in clear in the QRcode URL

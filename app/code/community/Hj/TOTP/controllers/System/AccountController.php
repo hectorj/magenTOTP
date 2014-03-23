@@ -69,7 +69,7 @@ class Hj_TOTP_System_AccountController extends Mage_Adminhtml_System_AccountCont
             if($this->getRequest()->getParam('enable_TOTP', false)){
                 $TOTP_seed=$this->getRequest()->getParam('new_TOTP_seed', false);
                 if($TOTP_seed && Mage::helper('Hj_TOTP/TOTP')->verify_key($TOTP_seed, $this->getRequest()->getParam('new_TOTP_key', ''))){
-                    $user->setData('TOTP_seed', $TOTP_seed);
+                    $user->setData('TOTP_seed', Mage::helper('Hj_TOTP')->encrypt($TOTP_seed));
                 } else {
                     Mage::getSingleton('adminhtml/session')->addError('The OTP token is incorrect or expired. Please try again (the seed has been renewed).');
                 }
