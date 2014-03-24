@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <layout>
 	<adminhtml_index_login>
-		<!--<reference name="content">
-			<action method="setTemplate">
-				<template>Hj_TOTP/login.phtml</template>
-			</action>
-		</reference>-->
 		<reference name="form.additional.info">
 			<block type="adminhtml/template" template="Hj_TOTP/login.phtml" name="Hj_TOTP_login" />
 		</reference>
