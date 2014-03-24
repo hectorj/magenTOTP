@@ -19,6 +19,7 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
             )
         );
         if(!$user->getData('TOTP_seed')){
+	    //@TODO : check if https. If not, issue a big red fat warning
 
             $new_TOTP_seed=Mage::helper('Hj_TOTP/TOTP')->generate_secret_key();
 
@@ -29,9 +30,9 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
                 mkdir($new_TOTP_seed_dir_path, 0777, true);//create the QRcode media dir
             }
 
-            $new_TOTP_seed_hash=hash('sha256', $new_TOTP_seed);//we hash the seed so it doesn't appear in clear in the QRcode URL
+            $new_TOTP_seed_hash=hash('sha256', $new_TOTP_seed.openssl_random_pseudo_bytes(128));//we salt & hash the seed so it doesn't appear in clear in the QRcode URL
 
-            $TOTP_id=str_replace('/', '_', str_replace('https://', '',str_replace('http://', '', Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB)))).'admin';
+            $TOTP_id=str_replace('/', '_', str_replace(array('https://','http://'), '', Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB))).'admin';
 
             QRcode::png('otpauth://totp/'.$TOTP_id.'?secret='.$new_TOTP_seed, $new_TOTP_seed_dir_path.DS.$new_TOTP_seed_hash.'.png');//creation of the QRcode png
 
