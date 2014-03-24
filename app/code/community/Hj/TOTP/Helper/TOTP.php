@@ -31,7 +31,7 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
     const keyRegeneration = 30; // Interval between key regeneration
     const otpLength = 6; // Length of the Token generated
 
-    private static $lut = array( // Lookup needed for Base32 encoding
+    private $lut = array( // Lookup needed for Base32 encoding
         "A" => 0, "B" => 1,
         "C" => 2, "D" => 3,
         "E" => 4, "F" => 5,
@@ -50,7 +50,7 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
         "6" => 30, "7" => 31
     );
 
-    public static function crypto_rand_secure($min, $max) {
+    public function crypto_rand_secure($min, $max) {
         $range = $max - $min;
         if ($range == 0) return $min; // not so random...
         $log = log($range, 2);
@@ -68,13 +68,13 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
      * Generates a 16 digit secret key in base32 format
      * @return string
      **/
-    public static function generate_secret_key($length = 16)
+    public function generate_secret_key($length = 16)
     {
         $b32 = "234567QWERTYUIOPASDFGHJKLZXCVBNM";
         $s = "";
 
         for ($i = 0; $i < $length; $i++)
-            $s .= $b32[self::crypto_rand_secure(0, 31)];
+            $s .= $b32[$this->crypto_rand_secure(0, 31)];
 
         return $s;
     }
@@ -84,15 +84,15 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
      * period.
      * @return integer
      **/
-    public static function get_timestamp()
+    public function get_timestamp()
     {
-        return floor(microtime(true) / self::keyRegeneration);
+        return floor(microtime(true) / $this->keyRegeneration);
     }
 
     /**
      * Decodes a base32 string into a binary string.
      **/
-    public static function base32_decode($b32)
+    public function base32_decode($b32)
     {
 
         $b32 = strtoupper($b32);
@@ -108,7 +108,7 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
         for ($i = 0; $i < $l; $i++) {
 
             $n = $n << 5; // Move buffer left by 5 to make room
-            $n = $n + self::$lut[$b32[$i]]; // Add value into buffer
+            $n = $n + $this->$lut[$b32[$i]]; // Add value into buffer
             $j = $j + 5; // Keep track of number of bits in buffer
 
             if ($j >= 8) {
@@ -128,7 +128,7 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
      * @param integer $counter - Timestamp as returned by get_timestamp.
      * @return string
      **/
-    public static function oath_hotp($key, $counter)
+    public function oath_hotp($key, $counter)
     {
         if (strlen($key) < 8)
             throw new Exception('Secret key is too short. Must be at least 16 base 32 characters');
@@ -136,7 +136,7 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
         $bin_counter = pack('N*', 0) . pack('N*', $counter); // Counter must be 64-bit int
         $hash = hash_hmac('sha1', $bin_counter, $key, true);
 
-        return str_pad(self::oath_truncate($hash), self::otpLength, '0', STR_PAD_LEFT);
+        return str_pad($this->oath_truncate($hash), $this->otpLength, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -149,17 +149,17 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
      * @param boolean $useTimeStamp
      * @return boolean
      **/
-    public static function verify_key($b32seed, $key, $window = 4, $useTimeStamp = true)
+    public function verify_key($b32seed, $key, $window = 4, $useTimeStamp = true)
     {
 
-        $timeStamp = self::get_timestamp();
+        $timeStamp = $this->get_timestamp();
 
         if ($useTimeStamp !== true) $timeStamp = (int)$useTimeStamp;
 
-        $binarySeed = self::base32_decode($b32seed);
+        $binarySeed = $this->base32_decode($b32seed);
 
         for ($ts = $timeStamp - $window; $ts <= $timeStamp + $window; $ts++)
-            if (self::oath_hotp($binarySeed, $ts) == $key)
+            if ($this->oath_hotp($binarySeed, $ts) == $key)
                 return true;
 
         return false;
@@ -171,7 +171,7 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
      * @param binary $hash
      * @return integer
      **/
-    public static function oath_truncate($hash)
+    public function oath_truncate($hash)
     {
         $offset = ord($hash[19]) & 0xf;
 
@@ -180,6 +180,6 @@ class Hj_TOTP_Helper_TOTP extends Mage_Core_Helper_Abstract {
             ((ord($hash[$offset + 1]) & 0xff) << 16) |
             ((ord($hash[$offset + 2]) & 0xff) << 8) |
             (ord($hash[$offset + 3]) & 0xff)
-        ) % pow(10, self::otpLength);
+        ) % pow(10, $this->otpLength);
     }
 }
