@@ -9,19 +9,21 @@ if(!extension_loaded('openssl')){
     Mage::throwException('Openssl PHP extension (http://www.php.net/manual/en/book.openssl.php) is required to use this module (HJ_TOTP)');
 }
 
-$helper = Mage::helper('Hj_TOTP');
+//$helper = Mage::helper('Hj_TOTP');
 /* @var $helper Hj_TOTP_Helper_Data */
+$encryption_helper = Mage::helper('Hj_TOTP/Encryption');
+/* @var $helper Hj_TOTP_Helper_Encryption */
 
 /* Generating and storing the encryption key which will be used to encrypt TOTP seeds before insertion in the DB */
 $strong=false;
 
-$key_size = mcrypt_get_key_size($helper->getEncryptionCipher(), $helper->getEncryptionMode());
+$key_size = mcrypt_get_key_size($encryption_helper->getEncryptionCipher(), $encryption_helper->getEncryptionMode());
 $key = openssl_random_pseudo_bytes($key_size, $strong);
 //@TODO : check for $strong and alert the user if false
 
-mkdir($helper->getKeyFileDir(), 0777, true);
+mkdir($encryption_helper->getKeyFileDir(), 0777, true);
 
-$file_path=$helper->getKeyFileDir().DS.$helper->getKeyFileName();
+$file_path=$encryption_helper->getKeyFileDir().DS.$encryption_helper->getKeyFileName();
 echo $file_path;
 
 if(is_file($file_path)){
