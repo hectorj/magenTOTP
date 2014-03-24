@@ -88,7 +88,7 @@ This module makes use of :
 
 - the (slightly modified) TOTP class from Phil : http://www.idontplaydarts.com/2011/07/google-totp-two-factor-authentication-for-php/ (license : originally GPL but I got his consent to change that)
 - the phpqrcode library from Dominik Dzienia : http://phpqrcode.sourceforge.net/ (license : LGPL)
-- the hashing class from Taylor Hornby : https://defuse.ca/php-pbkdf2.htm (license : ... some kind of homemade license you fill find in the https://github.com/hectorj/magenTOTP/blob/master/app/code/community/Hj/TOTP/Helper/Hash.php file)
+- the hashing class from Taylor Hornby : https://defuse.ca/php-pbkdf2.htm (license : ... some kind of homemade license you will find in the https://github.com/hectorj/magenTOTP/blob/master/app/code/community/Hj/TOTP/Helper/Hash.php file)
 - and of course Magento CE : http://magento.com/ (license : OSL v3)
 
 Thanks all of them for their open-source code.
