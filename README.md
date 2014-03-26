@@ -3,6 +3,8 @@ magenTOTP
 
 Magento CE module adding Time-based One-Time Password (TOTP) (2 factor authentication (2FA)) support to admin login (packaged as Hj_TOTP to ensure the name's unicity)
 
+**Important note : This module is still a beta version**
+
 ## **Disclaimer**
 
 **This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
@@ -41,6 +43,12 @@ Now the next time you will want to login to Magento with that account, you will 
 To disable it, go back to "System > My Account" and switch the "Enable OTP" dropdown to "No", then save.
 
 If for some reason you definitely lost the seed and can't access your account anymore, you will have to access your database, and set the TOTP_seed field for your account to NULL in the "admin_user" table. Again, be careful what you do, and backup your data.
+
+### ..Uninstall
+
+Remove all the module files, and then run the uninstall SQL script corresponding to your module version on your database (which can be found in that folder : https://github.com/hectorj/magenTOTP/tree/master/app/code/community/Hj/TOTP/sql/Hj_TOTP_setup).
+
+**It will definitely remove all data related to this module**, be careful. As always, you should have a **backup** of your database ready to be rolled back in case something wrong happens.
 
 ## Security Notes
 
