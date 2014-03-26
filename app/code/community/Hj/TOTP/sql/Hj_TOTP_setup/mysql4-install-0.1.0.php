@@ -5,9 +5,9 @@ $installer->startSetup();
 /* @var $installer Mage_Core_Model_Resource_Setup */
 
 
-//if (!extension_loaded('openssl')) {
-Mage::throwException('Openssl PHP extension (http://www.php.net/manual/en/book.openssl.php) is required to use this module (HJ_TOTP)');
-//}
+if (!extension_loaded('openssl')) {
+    Mage::throwException('Openssl PHP extension (http://www.php.net/manual/en/book.openssl.php) is required to use this module (HJ_TOTP)');
+}
 //$helper = Mage::helper('Hj_TOTP');
 /* @var $helper Hj_TOTP_Helper_Data */
 $encryption_helper = Mage::helper('Hj_TOTP/Encryption');
