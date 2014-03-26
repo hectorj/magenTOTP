@@ -19,7 +19,6 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
             )
         );
         if(!$user->getData('TOTP_seed')){
-	    //@TODO : check if https. If not, issue a big red fat warning
 
             $new_TOTP_seed=Mage::helper('Hj_TOTP/TOTP')->generate_secret_key();
 

@@ -8,6 +8,10 @@ class Hj_TOTP_System_AccountController extends Mage_Adminhtml_System_AccountCont
 	$this->getResponse()->setHeader('Pragma', 'no-cache', true);
 	$this->getResponse()->setHeader('Expires', '0', true);
 	
+	if(!Mage::app()->getStore()->isCurrentlySecure()){
+	    Mage::getSingleton('adminhtml/session')->addError('It is strongly advised to activate HTTPS');//@TODO : write a better warning
+	}
+	
 	return parent::indexAction();
     }
     
