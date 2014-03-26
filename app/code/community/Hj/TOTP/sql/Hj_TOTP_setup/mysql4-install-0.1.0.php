@@ -43,13 +43,12 @@ if (!$result) {
 chmod($file_path, 0700);
 
 /////////////////////////
-$installer->run("ALTER TABLE `{$installer->getTable('admin/user')}` ADD `TOTP_seed` VARBINARY(256) NULL COMMENT 'User TOTP seed';
-	
-    CREATE TABLE `{$installer->getTable('Hj_TOTP/invalidToken')}` (
+$installer->run("CREATE TABLE `{$installer->getTable('Hj_TOTP/invalidToken')}` (
       `id` int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
       `admin_user_id` int(10) unsigned NOT NULL,
       `timestamp` timestamp NOT NULL,
       `token` varchar(256) NOT NULL COMMENT 'hashed token',
       FOREIGN KEY (`admin_user_id`) REFERENCES `{$installer->getTable('admin/user')}` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
     );");
+$installer->run("ALTER TABLE `{$installer->getTable('admin/user')}` ADD `TOTP_seed` VARBINARY(256) NULL COMMENT 'User TOTP seed';");
 $installer->endSetup();

@@ -116,8 +116,11 @@ class Hj_TOTP_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup{
 	ob_start();//start bufferisation, to prevent the print_r from parent to get displayed
 	$return=false;
 	try{
+	    $this->getConnection()->beginTransaction();
 	    $return=parent::_modifyResourceDb($actionType, $fromVersion, $toVersion);
+	    $this->getConnection()->commit();
 	} catch(Exception $e){
+	    $this->getConnection()->rollback();
 	    Mage::log('Installation error : '.$e->getMessage(), Zend_Log::ERR, Mage::helper('Hj_TOTP')->getLogFileName(), true);//log the error
 	    
 	    //if(Mage::getSingleton('admin/session')->isLoggedIn() && !Mage::app()->getRequest()->isXmlHttpRequest()){
