@@ -12,4 +12,8 @@ class Hj_TOTP_Helper_Data extends Mage_Core_Helper_Abstract{
     public function getQRCodesDir(){
         return $this->getModuleMediaDir().DS.'qrcodes';
     }
+    
+    public function getLogFileName(){
+	return 'Hj_TOTP.log.txt';
+    }
 }

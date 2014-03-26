@@ -45,6 +45,7 @@
 	    <Hj_TOTP_setup>
 		<setup>
 		    <module>Hj_TOTP</module>
+		    <class>Hj_TOTP_Model_Resource_Setup</class>
 		</setup>
 	    </Hj_TOTP_setup>
 	</resources>
