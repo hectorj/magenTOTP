@@ -41,7 +41,7 @@ class Hj_TOTP_Block_Rewrite_Adminhtml_System_Account_Edit_Form extends Mage_Admi
                 )
             );
 
-            $new_TOTP_seed_field->setAfterElementHtml($new_TOTP_seed_field->getAfterElementHtml().'<img src="'.$this->getUrl('*/*/totp_qrcode', array('id'=>$new_TOTP_seed_hash)).'" style="margin: auto; display: block;" /><p style="text-align:center;">OTP seed : <strong>'.$new_TOTP_seed.'</strong></p>');
+            $new_TOTP_seed_field->setAfterElementHtml($new_TOTP_seed_field->getAfterElementHtml().'<img src="'.$this->getUrl('*/*/totp_qrcode', array('id'=>$new_TOTP_seed_hash, '_secure'=>true)).'" style="margin: auto; display: block;" /><p style="text-align:center;">OTP seed : <strong>'.$new_TOTP_seed.'</strong></p>');
 
             $new_TOTP_key_field=$fieldset->addField('new_TOTP_key', 'text', array(
                     'name'  => 'new_TOTP_key',
