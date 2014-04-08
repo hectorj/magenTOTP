@@ -46,7 +46,7 @@ If for some reason you definitely lost the seed and can't access your account an
 
 ### ..Uninstall
 
-Remove all the module files, and then run the uninstall SQL script corresponding to your module version on your database (which can be found in that folder : https://github.com/hectorj/magenTOTP/tree/master/app/code/community/Hj/TOTP/sql/Hj_TOTP_setup).
+Remove all the module files, and then run the uninstall SQL script corresponding to your module version on your database (which can be found in that folder : [/app/code/community/Hj/TOTP/sql/Hj_TOTP_setup](app/code/community/Hj/TOTP/sql/Hj_TOTP_setup)).
 
 **It will definitely remove all data related to this module**, be careful. As always, you should have a **backup** of your database ready to be rolled back in case something wrong happens.
 
@@ -72,7 +72,7 @@ To finish, using this module should not stop you from other good security practi
 
 ### After copying the files into my Magento folder, every page has become an error page
 
-Something went wrong during installation. For an instant quickfix, change `<active>true</active>` to `<active>false</active>` in the file /app/etc/modules/Hj_TOTP.xml
+Something went wrong during installation. For an instant quickfix, change `<active>true</active>` to `<active>false</active>` in the file [/app/etc/modules/Hj_TOTP.xml](app/etc/modules/Hj_TOTP.xml)
 
 For some more advanced debugging, check your Magento /var/report directory, and eventually come post an issue on Github (https://github.com/hectorj/magenTOTP/issues/new)
 
@@ -107,7 +107,7 @@ I want your feedback! I am open to criticism, and even more to suggestions. Do n
 
 ## License
 
-This module is released under the Open Software License version 3.0 (see here : https://github.com/hectorj/magenTOTP/blob/master/LICENSE.md or here : http://opensource.org/licenses/OSL-3.0)
+This module is released under the Open Software License version 3.0 (see [LICENSE.md file](LICENSE.md) or here : http://opensource.org/licenses/OSL-3.0)
 
 ### Why that license?
 
